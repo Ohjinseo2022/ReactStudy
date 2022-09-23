@@ -165,7 +165,7 @@ const State = () => {
     const removeState = state.filter((item) => item.id !== e.target.value);
     //filter 는 제거하라는 명령문이 아니라
     //해당 상태가 맞지 않는 데이터를 제외하고 읽어오는 것이므로
-    //원본 데이터를 훼손한 상태가 아니다.
+    //원본 데이터를 훼손한 상태가 아니다.dsa
     setState(removeState);
   };
 
