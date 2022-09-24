@@ -162,11 +162,14 @@ const State = () => {
   */
 
   const onRemoveHandler = (e) => {
-    const removeState = state.filter((item) => item.id !== e.target.value);
+    console.log(typeof e.target.value); //맵을 통해서 받아온 값을 value로 입력하면 문자열로 변경됨 타입까지 확인하려면 형변환을 해줘야함
+    const removeState = userList.filter(
+      (item) => item.id !== parseInt(e.target.value)
+    );
     //filter 는 제거하라는 명령문이 아니라
     //해당 상태가 맞지 않는 데이터를 제외하고 읽어오는 것이므로
-    //원본 데이터를 훼손한 상태가 아니다.왜자꾸 클린이라고 뜨징 ..?
-    setState(removeState);
+    //원본 데이터를 훼손한 상태가 아니다.
+    setUserList(removeState);
   };
 
   //<div onClick={onChangeText}>{state}</div>
@@ -174,7 +177,7 @@ const State = () => {
     <>
       {userList.map((v) => (
         <div key={v}>
-          {v.id}. {v.name}
+          {userList.indexOf(v) + 1}. {v.name}
           <button value={v.id} onClick={onRemoveHandler}>
             삭제
           </button>
