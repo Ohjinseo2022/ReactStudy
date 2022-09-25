@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import AddState from "./addState";
 const State = () => {
   const [state, setState] = useState("state 처음 시작");
@@ -171,14 +171,25 @@ const State = () => {
     //원본 데이터를 훼손한 상태가 아니다.
     setUserList(removeState);
   };
+  //배열로 elements를 받아오는 방법!! 원래는 삭제를 다른방법으로 하려했으나 차이가없음
+  const removeButtonArr = useRef([]);
+  const onRemoveHandler_2 = (e) => {
+    console.log(removeButtonArr);
+  };
+  const onRemoveHandler_3 = (item) => {};
 
   //<div onClick={onChangeText}>{state}</div>
   return (
     <>
-      {userList.map((v) => (
-        <div key={v}>
-          {userList.indexOf(v) + 1}. {v.name}
-          <button value={v.id} onClick={onRemoveHandler}>
+      {/* map,find, filter를 실행했을 시 결과값을 받아오는 변수에는 index를 가지고 올 수 있다. */}
+      {userList.map((item, index) => (
+        <div key={item}>
+          {index + 1}. {item.name}
+          <button
+            value={item.id}
+            onClick={onRemoveHandler_2}
+            ref={(el) => (removeButtonArr[index] = el)}
+          >
             삭제
           </button>
         </div>
