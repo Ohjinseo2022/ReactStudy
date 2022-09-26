@@ -173,10 +173,13 @@ const State = () => {
   };
   //배열로 elements를 받아오는 방법!! 원래는 삭제를 다른방법으로 하려했으나 차이가없음
   const removeButtonArr = useRef([]);
-  const onRemoveHandler_2 = (e) => {
+  const onPrintRefArr = (e) => {
     console.log(removeButtonArr);
   };
-  const onRemoveHandler_3 = (item) => {};
+  const onRemoveHandler_3 = (itemId) => {
+    const removeState = userList.filter((item) => item.id !== itemId.id);
+    setUserList(removeState);
+  };
 
   //<div onClick={onChangeText}>{state}</div>
   return (
@@ -187,7 +190,9 @@ const State = () => {
           {index + 1}. {item.name}
           <button
             value={item.id}
-            onClick={onRemoveHandler_2}
+            //map안에서 매개변수로 전달하게되면
+            //해당 객체에 해당하는 모든 정보를 매개변수로 전달받을 수 있다.
+            onClick={() => onRemoveHandler_3(item)}
             ref={(el) => (removeButtonArr[index] = el)}
           >
             삭제
