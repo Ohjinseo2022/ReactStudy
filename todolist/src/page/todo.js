@@ -1,27 +1,40 @@
-/**
- * 컴포넌트 랜더 함수의 기본형태
- * 컴포넌트 명은 대문자 시작 (이유는 훅 함수가 사용되기 위해서)
- * const 컴포넌트명 = () =>{
- *    js, jsx 문법(hook)
- *
- *    return(
- *      "html"
- *    )
- * }
- * export default 밖에서 사용할 이름(컴포넌트명)
- */
-
 import TodoForm from "../components/todoForm";
 import TodoList from "../components/todoList";
 import TodoTitle from "../components/todoTitle";
+import { useCallback, useState } from "react";
 
 const Todo = () => {
-  //랜더함수 시작 => re-randering
+  const [state, setState] = useState([
+    {
+      id: 1,
+      Todo: "리엑트공부하기",
+    },
+    {
+      id: 2,
+      Todo: "Todo 리스트 만들기",
+    },
+  ]);
+  const onAddhendler = useCallback(
+    (id, todo) => {
+      setState([...state, { id: id, Todo: todo }]);
+    },
+    [state]
+  );
+
+  const onRemoveHandler = useCallback(
+    (id) => {
+      const removeState = state.filter((item) => item.id !== id);
+      setState(removeState);
+    },
+    [state]
+  );
   return (
     <>
       <TodoTitle />
-      <TodoForm />
-      <TodoList />
+      <TodoForm onAddhendler={onAddhendler} />
+      {state.map((v) => (
+        <TodoList key={v.id} onRemoveHandler={onRemoveHandler} state={v} />
+      ))}
     </>
   );
 };

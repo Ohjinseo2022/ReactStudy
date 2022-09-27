@@ -1,7 +1,7 @@
-const TodoList = () => {
+const TodoList = ({ state }) => {
   return (
     <div>
-      1. REACT 공부하기 <button>완료</button>
+      {state.id}. {state.Todo} <button>완료</button>
     </div>
   );
 };
