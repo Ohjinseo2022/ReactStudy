@@ -3,23 +3,29 @@ import styled from "styled-components";
 
 const TodoForm = ({ onAddhendler, stateId }) => {
   const [text, setText] = useState("");
-  const mousePoint = useRef(null);
-
-  const onChangeInput = (e) => {
-    setText(e.target.value);
-  };
-  const onAddState = (e) => {
-    onAddhendler(stateId + 1, text);
-    setText("");
-    mousePoint.current.focus();
-  };
-
-  const onEnterHandler = (e) => {
-    if (e.key === "Enter") {
+  const onChangeInput = useCallback(
+    (e) => {
+      setText(e.target.value);
+    },
+    [setText]
+  );
+  const onAddState = useCallback(
+    (e) => {
       onAddhendler(stateId + 1, text);
       setText("");
-    }
-  };
+    },
+    [text, setText, stateId, onAddhendler]
+  );
+
+  const onEnterHandler = useCallback(
+    (e) => {
+      if (e.key === "Enter") {
+        onAddhendler(stateId + 1, text);
+        setText("");
+      }
+    },
+    [text, setText, stateId, onAddhendler]
+  );
   return (
     <Container>
       <TodoaddInput
