@@ -14,8 +14,10 @@ const Todo = () => {
       Todo: "Todo 리스트 만들기",
     },
   ]);
+  //이상해..ㄴ
   const onAddhendler = useCallback(
     (id, todo) => {
+      console.log(id);
       setState([...state, { id: id, Todo: todo }]);
     },
     [state]
@@ -23,17 +25,28 @@ const Todo = () => {
 
   const onRemoveHandler = useCallback(
     (id) => {
-      const removeState = state.filter((item) => item.id !== id);
+      console.log(typeof id.target.value);
+      const removeState = state.filter(
+        (item) => item.id !== parseInt(id.target.value)
+      );
       setState(removeState);
     },
     [state]
   );
   return (
     <>
-      <TodoTitle />
-      <TodoForm onAddhendler={onAddhendler} />
-      {state.map((v) => (
-        <TodoList key={v.id} onRemoveHandler={onRemoveHandler} state={v} />
+      <TodoTitle TodoScore={state.length} />
+      <TodoForm
+        onAddhendler={onAddhendler}
+        stateId={state.length > 0 && state[state.length - 1].id}
+      />
+      {state.map((v, index) => (
+        <TodoList
+          key={v.id}
+          onRemoveHandler={onRemoveHandler}
+          state={v}
+          stateIndex={index}
+        />
       ))}
     </>
   );

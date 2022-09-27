@@ -1,7 +1,10 @@
-const TodoList = ({ state }) => {
+const TodoList = ({ state, onRemoveHandler, stateIndex }) => {
   return (
     <div>
-      {state.id}. {state.Todo} <button>완료</button>
+      {stateIndex + 1}. {state.Todo}
+      <button onClick={onRemoveHandler} value={state.id}>
+        완료
+      </button>
     </div>
   );
 };

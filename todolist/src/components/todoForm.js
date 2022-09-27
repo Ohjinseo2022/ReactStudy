@@ -1,10 +1,34 @@
+import { useState } from "react";
 import styled from "styled-components";
 
-const TodoForm = () => {
+const TodoForm = ({ onAddhendler, stateId }) => {
+  const [text, setText] = useState("");
+  const onChangeInput = (e) => {
+    setText(e.target.value);
+  };
+  const onAddState = (e) => {
+    onAddhendler(stateId + 1, text);
+    setText("");
+  };
+
+  const onEnterHandler = (e) => {
+    if (e.key === "Enter") {
+      onAddhendler(stateId + 1, text);
+      setText("");
+    }
+  };
   return (
     <div>
-      <TodoaddInput type="text" placeholder="할 일을 적어주세요" />
-      <TodoButton>추가</TodoButton>
+      <TodoaddInput
+        type="text"
+        value={text}
+        onChange={onChangeInput}
+        placeholder="할 일을 적어주세요"
+        onKeyPress={onEnterHandler}
+      />
+      <TodoButton onClick={onAddState} value={text}>
+        추가
+      </TodoButton>
     </div>
   );
 };
