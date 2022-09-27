@@ -14,10 +14,9 @@ const Todo = () => {
       Todo: "Todo 리스트 만들기",
     },
   ]);
-  //이상해..ㄴ
+
   const onAddhendler = useCallback(
     (id, todo) => {
-      console.log(id);
       setState([...state, { id: id, Todo: todo }]);
     },
     [state]
@@ -25,7 +24,6 @@ const Todo = () => {
 
   const onRemoveHandler = useCallback(
     (id) => {
-      console.log(typeof id.target.value);
       const removeState = state.filter(
         (item) => item.id !== parseInt(id.target.value)
       );

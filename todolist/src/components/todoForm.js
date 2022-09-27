@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styled from "styled-components";
 
 const TodoForm = ({ onAddhendler, stateId }) => {
   const [text, setText] = useState("");
+  const mousePoint = useRef(null);
+
   const onChangeInput = (e) => {
     setText(e.target.value);
   };
   const onAddState = (e) => {
     onAddhendler(stateId + 1, text);
     setText("");
+    mousePoint.current.focus();
   };
 
   const onEnterHandler = (e) => {
@@ -18,34 +21,37 @@ const TodoForm = ({ onAddhendler, stateId }) => {
     }
   };
   return (
-    <div>
+    <Container>
       <TodoaddInput
         type="text"
         value={text}
         onChange={onChangeInput}
         placeholder="할 일을 적어주세요"
         onKeyPress={onEnterHandler}
+        ref={mousePoint}
       />
       <TodoButton onClick={onAddState} value={text}>
         추가
       </TodoButton>
-    </div>
+    </Container>
   );
 };
 
 export default TodoForm;
 
+const Container = styled.div`
+  margin: 0 auto;
+  width: 550px;
+  display: flex;
+`;
 const TodoaddInput = styled.input`
   border-radius: 5px;
   width: 500px;
   font-size: 32px;
-  position: relative;
-  padding-left: 20px;
 `;
 
 const TodoButton = styled.button`
   border-radius: 5px;
-  width: 53px;
+  width: 50px;
   height: 43px;
-  position: absolute;
 `;
