@@ -7,6 +7,7 @@ const Reducer = () => {
   const [number, dispatch] = useReducer(reducer, initialState); //버츄얼돔이 인식 할 수 있는 전역상태 state로바뀜
   //    상태명 , 전달 매개체(함수전달가능)      전달받을 로직, 변화를 줄 변수
   //dispatch 는 리듀에서도 사용함 !
+  //2번이상 반복 사용되는 로직만 전역상태로 전환하는게 좋음!!
 
   const onIncrement = useCallback(() => {
     dispatch({

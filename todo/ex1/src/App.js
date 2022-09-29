@@ -1,10 +1,12 @@
+import ContextAPI from "./components/contextApi";
 import Reducer from "./components/reducer";
-
+import ContextProvider from "./reducer/context";
 function App() {
   return (
-    <div className="App">
+    <ContextProvider>
+      <ContextAPI />
       <Reducer />
-    </div>
+    </ContextProvider>
   );
 }
 
