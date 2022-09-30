@@ -9,5 +9,5 @@ function App() {
     </ContextProvider>
   );
 }
-
+//원래 index.js 에 설정해놓는다!
 export default App;
