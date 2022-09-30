@@ -1,16 +1,28 @@
-import { useState } from "react";
+import { useCallback, useContext, useState } from "react";
+import { ADD_STATE, Context } from "../reducer/context";
 
-const AddState = ({ onIncrement }) => {
+const AddState = () => {
+  const { state, dispatch } = useContext(Context);
+
   const [name, setName] = useState("");
-
-  const onChangeInput = (e) => {
+  const onChangeInput = useCallback((e) => {
     setName(e.target.value);
-  };
-  const onAddhendler = (e) => {
-    onIncrement(name);
-    setName("");
-  };
+  }, []);
 
+  const onAddState = useCallback(() => {
+    dispatch({
+      type: ADD_STATE,
+      id: state[state.length - 1].id + 1,
+      name: name,
+    });
+    setName("");
+  }, [state, name, dispatch]);
+
+  // const onAddhendler = () => {
+  //   onIncrement(name);
+  //   setName("");
+  // };
+  //기존방식
   return (
     <>
       <input
@@ -19,7 +31,7 @@ const AddState = ({ onIncrement }) => {
         placeholder="이름을 입력하세요"
         onChange={onChangeInput}
       />
-      <button onClick={onAddhendler}>추가</button>
+      <button onClick={onAddState}>추가</button>
       <button>초기화</button>
     </>
   );
