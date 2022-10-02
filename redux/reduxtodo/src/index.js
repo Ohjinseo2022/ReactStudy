@@ -11,6 +11,7 @@ import rootReducer from "./reducer/_index";
 import { composeWithDevTools } from "redux-devtools-extension";
 const store = createStore(rootReducer, composeWithDevTools());
 const root = ReactDOM.createRoot(document.getElementById("root"));
+//미들웨어 복습!
 root.render(
   <Provider store={store}>
     <App />
