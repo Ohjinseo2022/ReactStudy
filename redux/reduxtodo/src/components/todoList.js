@@ -1,12 +1,23 @@
+import { useDispatch } from "react-redux";
+import { useCallback } from "react";
 import styled from "styled-components";
+import { DELETE_TODO } from "../reducer/todo";
 
-const TodoList = ({ state, onRemoveHandler, stateIndex }) => {
+const TodoList = ({ state, index }) => {
+  const dispatch = useDispatch();
+  const onRemoveHandler = useCallback(() => {
+    dispatch({
+      type: DELETE_TODO,
+      id: state.id,
+    });
+  }, [dispatch, state.id]);
+
   return (
     <TodoListContainer>
       <TodoListSpan>
-        {stateIndex + 1}. {state.Todo}
+        {index + 1}. {state.todo}
       </TodoListSpan>
-      <TodoListBtn onClick={onRemoveHandler} value={state.id}>
+      <TodoListBtn value={state.id} onClick={onRemoveHandler}>
         완료
       </TodoListBtn>
     </TodoListContainer>
