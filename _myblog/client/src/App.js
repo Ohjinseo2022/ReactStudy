@@ -6,6 +6,8 @@ import LoginPage from "./pages/loginPage";
 import SignPage from "./pages/signPage";
 import BlogPage from "./pages/blogPage";
 import ChatPage from "./pages/chatPage";
+import MyBlogLayOut from "./_layout/myBlogLayOut";
+import GlobalStyle from "./style/global";
 function App() {
   useEffect(() => {
     console.log(`기본지원 모드 : ${process.env.NODE_ENV}`);
@@ -16,13 +18,16 @@ function App() {
   }, []);
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path={"/"} element={<MainPage />} />
-        <Route path={"/login"} element={<LoginPage />} />
-        <Route path={"/sign"} element={<SignPage />} />
-        <Route path={"/blog/userid=:id"} element={<BlogPage />} />
-        <Route path={"/chat"} element={<ChatPage />} />
-      </Routes>
+      <GlobalStyle />
+      <MyBlogLayOut>
+        <Routes>
+          <Route path={"/"} element={<MainPage />} />
+          <Route path={"/login"} element={<LoginPage />} />
+          <Route path={"/sign"} element={<SignPage />} />
+          <Route path={"/blog/userid=:id"} element={<BlogPage />} />
+          <Route path={"/chat"} element={<ChatPage />} />
+        </Routes>
+      </MyBlogLayOut>
     </BrowserRouter>
   );
 }
